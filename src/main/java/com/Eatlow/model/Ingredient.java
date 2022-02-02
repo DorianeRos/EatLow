@@ -1,7 +1,13 @@
 package com.Eatlow.model;
 
-
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "INGREDIENT")
@@ -18,9 +24,10 @@ public class Ingredient {
 	@Column(name = "DQR")
 	private float dqr;
 
-	@ManyToOne //LIEN AVEC SOUS GROUPE
+	@ManyToOne // LIEN AVEC SOUS GROUPE
 	@JoinColumn(name = "ID_SOUS_GRP_ING")
 	private SousGroupe sousGroupeIng;
+
 
 	// CONSTRUCTEUR
 	public Ingredient(int id, String nom, float dqr, SousGroupe sousGroupeIng) {
@@ -65,13 +72,16 @@ public class Ingredient {
 	}
 
 	// TO STRING
+
 	@Override
 	public String toString() {
-		return "EIngredient [id=" + id + ", nom=" + nom + ", dqr=" + dqr + ", sousGroupeIng=" + sousGroupeIng + "]";
+		return "Ingredient [id=" + id + ", nom=" + nom + ", dqr=" + dqr + ", sousGroupeIng=" + sousGroupeIng
+				+ "]";
 	}
 
 	// CONSTRUCTEUR VIDE
 	public Ingredient() {
 		// TODO Auto-generated constructor stub
 	}
+
 }

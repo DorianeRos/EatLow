@@ -25,4 +25,9 @@ class UtilisateurTest {
 		assertThat(u.getId()).isNotNull();
 	}
 
+	@Test
+	void testUpdate() {
+
+	}
+
 }

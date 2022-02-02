@@ -1,6 +1,17 @@
 package com.Eatlow.model;
 
-import javax.persistence.*;
+import java.util.Set;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "PLAT")
@@ -13,16 +24,21 @@ public class Plat {
 	@Column(name = "NOM")
 	private String nom;
 
-	@ManyToOne //LIEN AVEC SOUS GROUPE
-	@JoinColumn(name = "SS_GRP_PLAT")
+	@Column(name = "AUTRE_ETAPE")
+	private Float coupAutreEtape;
+
+	@ManyToOne // LIEN AVEC SOUS GROUPE
+	@JoinColumn(name = "SOUS_GROUPE_ID")
 	private SousGroupe sousGroupePlat;
 
-	// CONSTRUCTEUR
-	public Plat(int id, String nom, SousGroupe sousGroupePlat) {
-		super();
-		this.id = id;
-		this.nom = nom;
-		this.sousGroupePlat = sousGroupePlat;
+	@ManyToMany // table lien entre utilisateur et plat
+	@JoinTable(name = "COMPOSITION_PLAT_INGREDIENT", joinColumns = @JoinColumn(name = "PLAT_ID", referencedColumnName = "ID"), inverseJoinColumns = @JoinColumn(name = "INGREDIENT_ID", referencedColumnName = "ID"))
+
+	private Set<Ingredient> ingredients;
+
+	// CONSTRUCTEUR VIDE
+	public Plat() {
+		// TODO Auto-generated constructor stub
 	}
 
 	// SETTERS / GETTERS
@@ -50,15 +66,21 @@ public class Plat {
 		this.sousGroupePlat = sousGroupePlat;
 	}
 
-	// TO STRING
-	@Override
-	public String toString() {
-		return "EPlat [id=" + id + ", nom=" + nom + ", sousGroupePlat=" + sousGroupePlat + "]";
+	public Float getCoupAutreEtape() {
+		return coupAutreEtape;
+	}
+
+	public void setCoupAutreEtape(Float coupAutreEtape) {
+		this.coupAutreEtape = coupAutreEtape;
 	}
 	
-	// CONSTRUCTEUR VIDE
-	public Plat() {
-		// TODO Auto-generated constructor stub
+	
+	// TO STRING
+
+	@Override
+	public String toString() {
+		return "Plat [id=" + id + ", nom=" + nom + ", coupAutreEtape=" + coupAutreEtape + ", sousGroupePlat="
+				+ sousGroupePlat + ", ingredients=" + ingredients + "]";
 	}
 
 

@@ -1,8 +1,16 @@
 package com.Eatlow.model;
 
-import java.util.Set;
+import java.util.List;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "UTILISATEUR")
@@ -25,41 +33,29 @@ public class Utilisateur {
 	@Column(name = "PASSWORD")
 	private String password;
 
-	
-	@ManyToMany //table de lien entre utilisateur et ingredients
-	@JoinTable(	name = "CONSOMMER",
-				joinColumns=@JoinColumn(name="ID_UTI", referencedColumnName="ID"),
-				inverseJoinColumns=@JoinColumn(name="ID_ING", referencedColumnName="ID"))
-	
-	private Set<Utilisateur> utiConso;
-	
-	@ManyToMany //table lien entre utilisateur et plat
-	@JoinTable(	name = "MANGER",
-				joinColumns=@JoinColumn(name="ID_UTI", referencedColumnName="ID"),
-				inverseJoinColumns=@JoinColumn(name="ID_PLAT", referencedColumnName="ID"))
-	
-	private Set<Utilisateur> utiPlat;
-	
+	@ManyToMany // table de lien entre utilisateur et ingredients
+	@JoinTable(	name = "HISTORIQUE_INGREDIENT", 
+				joinColumns = @JoinColumn(name = "ID_UTI", referencedColumnName = "ID"), 
+				inverseJoinColumns = @JoinColumn(name = "ID_ING", referencedColumnName = "ID"))
 
-	// CONSTRUCTEUR
-		public Utilisateur(int id, String nom, String prenom, String email, String password, Set<Utilisateur> utiConso,
-			Set<Utilisateur> utiPlat) {
-		super();
-		this.id = id;
-		this.nom = nom;
-		this.prenom = prenom;
-		this.email = email;
-		this.password = password;
-		this.utiConso = utiConso;
-		this.utiPlat = utiPlat;
+	private List<Ingredient> historiqueIngredient;
+
+	@ManyToMany // table lien entre utilisateur et plat
+	@JoinTable(	name = "HISTORIQUE_PLAT", 
+				joinColumns = @JoinColumn(name = "ID_UTI", referencedColumnName = "ID"), 
+				inverseJoinColumns = @JoinColumn(name = "ID_PLAT", referencedColumnName = "ID"))
+
+	private List<Plat> historiquePlat;
+
+	// CONSTRUCTEUR VIDE
+	public Utilisateur() {
+		// TODO Auto-generated constructor stub
 	}
 
-	
-	//SETTERS / GETTERS
+	// SETTERS / GETTERS
 	public int getId() {
 		return id;
 	}
-
 
 	public void setId(int id) {
 		this.id = id;
@@ -97,31 +93,28 @@ public class Utilisateur {
 		this.password = password;
 	}
 
-	public Set<Utilisateur> getUtiConso() {
-		return utiConso;
+	public List<Ingredient> getHistoriqueIngredient() {
+		return historiqueIngredient;
 	}
 
-	public void setUtiConso(Set<Utilisateur> utiConso) {
-		this.utiConso = utiConso;
+	public void setHistoriqueIngredient(List<Ingredient> historiqueIngredient) {
+		this.historiqueIngredient = historiqueIngredient;
 	}
 
-	public Set<Utilisateur> getUtiPlat() {
-		return utiPlat;
+	public List<Plat> getHistoriquePlat() {
+		return historiquePlat;
 	}
 
-	public void setUtiPlat(Set<Utilisateur> utiPlat) {
-		this.utiPlat = utiPlat;
+	public void setHistoriquePlat(List<Plat> historiquePlat) {
+		this.historiquePlat = historiquePlat;
 	}
-	
+
 	// TO STRING
+
 	@Override
 	public String toString() {
-		return "EUtilisateur [id=" + id + ", nom=" + nom + ", prenom=" + prenom + ", email=" + email + ", password="
-				+ password + ", utiConso=" + utiConso + ", utiPlat=" + utiPlat + "]";
-	}
-	
-	// CONSTRUCTEUR VIDE
-	public Utilisateur() {
-		// TODO Auto-generated constructor stub
+		return "Utilisateur [id=" + id + ", nom=" + nom + ", prenom=" + prenom + ", email=" + email + ", password="
+				+ password + ", historiqueIngredient=" + historiqueIngredient + ", historiquePlat=" + historiquePlat
+				+ "]";
 	}
 }
