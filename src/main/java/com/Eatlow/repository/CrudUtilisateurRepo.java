@@ -2,8 +2,8 @@ package com.Eatlow.repository;
 
 import org.springframework.data.repository.CrudRepository;
 
-import com.Eatlow.model.Utilisateur;
+import com.Eatlow.model.User;
 
-public interface CrudUtilisateurRepo extends CrudRepository<Utilisateur, Integer> {
+public interface CrudUtilisateurRepo extends CrudRepository<User, Integer> {
 
 }
