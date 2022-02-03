@@ -49,7 +49,6 @@ public class Utilisateur {
 
 	// CONSTRUCTEUR VIDE
 	public Utilisateur() {
-		// TODO Auto-generated constructor stub
 	}
 
 	// SETTERS / GETTERS

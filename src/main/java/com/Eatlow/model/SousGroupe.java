@@ -28,21 +28,15 @@ public class SousGroupe {
 	private Set<Ingredient> ingredients;
 
 	@Transient // LIEN AVEC PLAT
-	@Column(name = "sous_groupe_id")
 	private Set<Plat> ssGrpPlat;
 
 	@ManyToOne // LIEN AVEC GROUPE
-	@JoinColumn(name = "ID_GRP")
+	@JoinColumn(name = "GROUPE_ID")
 	private Groupe groupe;
 
-	// CONSTRUCTEUR
-	public SousGroupe(int id, String nom, Set<Ingredient> ingredients, Set<Plat> ssGrpPlat, Groupe groupe) {
-		super();
-		this.id = id;
-		this.nom = nom;
-		this.ingredients = ingredients;
-		this.ssGrpPlat = ssGrpPlat;
-		this.groupe = groupe;
+	// CONSTRUCTEUR VIDE
+	public SousGroupe() {
+		ingredients = new HashSet<Ingredient>();
 	}
 
 	// SETTERS / GETTERS
@@ -92,11 +86,4 @@ public class SousGroupe {
 		return "ESousGroupe [id=" + id + ", nom=" + nom + ", ingredients=" + ingredients + ", ssGrpPlat=" + ssGrpPlat
 				+ ", groupe=" + groupe + "]";
 	}
-
-	// CONSTRUCTEUR VIDE
-	public SousGroupe() {
-		// TODO Auto-generated constructor stub
-		ingredients = new HashSet<Ingredient>();
-	}
-
 }
