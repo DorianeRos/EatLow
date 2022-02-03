@@ -19,12 +19,9 @@ public class Groupe {
 	@Transient//LIEN VERS SOUS GROUPE
 	private Set<SousGroupe> sousGroupe;
 
-	// CONSTRUCTEUR
-	public Groupe(int id, String nom, Set<SousGroupe> sousGroupe) {
-		super();
-		this.id = id;
-		this.nom = nom;
-		this.sousGroupe = sousGroupe;
+	// CONSTRUCTEUR VIDE
+	public Groupe() {
+		sousGroupe = new HashSet<SousGroupe>();
 	}
 
 	// SETTERS / GETTERS
@@ -56,12 +53,6 @@ public class Groupe {
 	@Override
 	public String toString() {
 		return "EGroupe [id=" + id + ", nom=" + nom + ", sousGroupe=" + sousGroupe + "]";
-	}
-
-	// CONSTRUCTEUR VIDE
-	public Groupe() {
-		// TODO Auto-generated constructor stub
-		sousGroupe = new HashSet<SousGroupe>();
 	}
 
 }
