@@ -9,9 +9,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.springframework.lang.Nullable;
+
 @Entity
 @Table(name = "INGREDIENT")
-
 public class Ingredient {
 
 	@Id
@@ -21,21 +22,21 @@ public class Ingredient {
 	@Column(name = "NOM")
 	private String nom;
 
+	@Nullable
 	@Column(name = "DQR")
-	private float dqr;
+	private Float dqr;
 
 	@ManyToOne // LIEN AVEC SOUS GROUPE
-	@JoinColumn(name = "ID_SOUS_GRP_ING")
+	@JoinColumn(name = "SOUS_GROUPE_ID")
 	private SousGroupe sousGroupeIng;
 
+	@ManyToOne // LIEN AVEC COUT_ENERGETIQUE
+	@JoinColumn(name = "COUT_ENERGETIQUE_ID")
+	private CoutEnergetique coutEnergetique;
 
-	// CONSTRUCTEUR
-	public Ingredient(int id, String nom, float dqr, SousGroupe sousGroupeIng) {
-		super();
-		this.id = id;
-		this.nom = nom;
-		this.dqr = dqr;
-		this.sousGroupeIng = sousGroupeIng;
+	// CONSTRUCTEUR VIDE
+	public Ingredient() {
+		// TODO Auto-generated constructor stub
 	}
 
 	// GETTERS / SETTERS
@@ -55,11 +56,11 @@ public class Ingredient {
 		this.nom = nom;
 	}
 
-	public float getDqr() {
+	public Float getDqr() {
 		return dqr;
 	}
 
-	public void setDqr(float dqr) {
+	public void setDqr(Float dqr) {
 		this.dqr = dqr;
 	}
 
@@ -73,15 +74,17 @@ public class Ingredient {
 
 	// TO STRING
 
-	@Override
-	public String toString() {
-		return "Ingredient [id=" + id + ", nom=" + nom + ", dqr=" + dqr + ", sousGroupeIng=" + sousGroupeIng
-				+ "]";
+	public CoutEnergetique getCoutEnergetique() {
+		return coutEnergetique;
 	}
 
-	// CONSTRUCTEUR VIDE
-	public Ingredient() {
-		// TODO Auto-generated constructor stub
+	public void setCoutEnergetique(CoutEnergetique coutEnergetique) {
+		this.coutEnergetique = coutEnergetique;
+	}
+
+	@Override
+	public String toString() {
+		return "Ingredient [id=" + id + ", nom=" + nom + ", dqr=" + dqr + ", sousGroupeIng=" + sousGroupeIng + "]";
 	}
 
 }

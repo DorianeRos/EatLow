@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.Eatlow.model.CoupEnergetique;
+import com.Eatlow.model.CoutEnergetique;
 import com.Eatlow.repository.CrudCoupEnergetiqueRepo;
 
 @SpringBootTest
@@ -17,7 +17,7 @@ public class EnergetiqueTest {
 
 	@Test
 	public void testCreate() {
-		CoupEnergetique ce = new CoupEnergetique();
+		CoutEnergetique ce = new CoutEnergetique();
 		ce.setAgriculture((float) 1.6);
 		ce.setConsomation((float) 2.3);
 		ce.setEmballage((float) 3.6);
