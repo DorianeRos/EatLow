@@ -7,12 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.Eatlow.model.User;
-import com.Eatlow.repository.CrudUtilisateurRepo;
+import com.Eatlow.repository.CrudUserRepo;
 
 @SpringBootTest
 class UtilisateurTest {
 	@Autowired
-	private CrudUtilisateurRepo cur;
+	private CrudUserRepo cur;
 
 	@Test
 	void testCreate() {

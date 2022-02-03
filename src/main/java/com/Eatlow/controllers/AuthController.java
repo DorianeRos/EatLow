@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.Eatlow.exceptions.UserException;
 import com.Eatlow.model.User;
-import com.Eatlow.repository.CrudUtilisateurRepo;
+import com.Eatlow.repository.CrudUserRepo;
 
 @RestController
 @CrossOrigin
@@ -24,7 +24,7 @@ import com.Eatlow.repository.CrudUtilisateurRepo;
 public class AuthController {
 
 	@Autowired
-	private CrudUtilisateurRepo userRepository;
+	private CrudUserRepo userRepository;
 
 	private String message;
 

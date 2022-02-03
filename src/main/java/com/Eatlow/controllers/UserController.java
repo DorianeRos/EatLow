@@ -1,5 +1,7 @@
 package com.Eatlow.controllers;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 import javax.validation.Valid;
@@ -16,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.Eatlow.exceptions.UserException;
 import com.Eatlow.model.User;
-import com.Eatlow.repository.CrudUtilisateurRepo;
+import com.Eatlow.repository.CrudUserRepo;
 
 @RestController
 @CrossOrigin
@@ -24,7 +26,7 @@ import com.Eatlow.repository.CrudUtilisateurRepo;
 public class UserController {
 
 	@Autowired
-	private CrudUtilisateurRepo userRepository;
+	private CrudUserRepo userRepository;
 
 	private String message;
 
@@ -44,6 +46,23 @@ public class UserController {
 		}
 	}
 
+	private void checkForPasswordValidity(String password, String passwordInDB) throws UserException {
+		if (!password.equals(passwordInDB)) {
+			throw new UserException("La combinaison Email/password ne correspondent pas");
+		}
+	}
+
+	private void checkForLogin(User user) throws UserException {
+		Boolean noEmail = user.getEmail().isEmpty() || user.getEmail().isBlank();
+		Boolean noPassword = user.getPassword().isEmpty() || user.getPassword().isBlank();
+		if (noEmail) {
+			throw new UserException("Veuillez entrer un Email valide");
+		}
+		if (noPassword) {
+			throw new UserException("Veuillez entrer un Password valide");
+		}
+	}
+
 	@GetMapping
 	public Iterable<User> getAll() {
 		return this.userRepository.findAll();
@@ -58,7 +77,21 @@ public class UserController {
 	@PostMapping("/register")
 	public void registerUser(@Valid @RequestBody User user, BindingResult result) throws UserException {
 		this.checkForErrors(result);
-		System.out.println(user);
 		this.userRepository.save(user);
+	}
+
+	@PostMapping("/login")
+	public Map<String, String> loginUser(@Valid @RequestBody User user, BindingResult result) throws UserException {
+		this.checkForLogin(user);
+		System.out.println(user);
+		System.out.println(result);
+		Optional<User> userInDB = this.userRepository.findByEmail(user.getEmail());
+		if (userInDB.isEmpty()) {
+			throw new UserException("Error");
+		}
+		this.checkForPasswordValidity(user.getPassword(), userInDB.get().getPassword());
+		Map<String, String> message = new HashMap<>();
+		message.put("coucou", "salut");
+		return message;
 	}
 }
