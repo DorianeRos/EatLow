@@ -1,5 +1,7 @@
 package com.Eatlow.model;
 
+import org.springframework.lang.Nullable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -20,40 +22,38 @@ public class Ingredient {
 	private int id;
 
 	@Column(name = "NOM")
-	private String nom;
+	private String name;
 
 	@Nullable
-	@Column(name = "DQR")
+	@Column(name = "DQR", nullable = true)
 	private Float dqr;
 
+	@Nullable
 	@ManyToOne // LIEN AVEC SOUS GROUPE
-	@JoinColumn(name = "SOUS_GROUPE_ID")
-	private SousGroupe sousGroupeIng;
+	@JoinColumn(name = "SOUS_GROUPE_ID", nullable = true)
+	private SousGroupe subGroup;
 
 	@ManyToOne // LIEN AVEC COUT_ENERGETIQUE
 	@JoinColumn(name = "COUT_ENERGETIQUE_ID")
-	private CoutEnergetique coutEnergetique;
+	private EnergyCost energyCost;
 
 	// CONSTRUCTEUR VIDE
 	public Ingredient() {
-		// TODO Auto-generated constructor stub
 	}
 
 	// GETTERS / SETTERS
 	public int getId() {
 		return id;
 	}
-
 	public void setId(int id) {
 		this.id = id;
 	}
 
-	public String getNom() {
-		return nom;
+	public String getName() {
+		return name;
 	}
-
-	public void setNom(String nom) {
-		this.nom = nom;
+	public void setName(String nom) {
+		this.name = name;
 	}
 
 	public Float getDqr() {
@@ -64,27 +64,16 @@ public class Ingredient {
 		this.dqr = dqr;
 	}
 
-	public SousGroupe getSousGroupeIng() {
-		return sousGroupeIng;
-	}
+	public SousGroupe getSubGroup() {return subGroup;}
+	public void setSubGroup(SousGroupe subGroup) {this.subGroup = subGroup;}
 
-	public void setSousGroupeIng(SousGroupe sousGroupeIng) {
-		this.sousGroupeIng = sousGroupeIng;
-	}
+	public EnergyCost getEnergyCost() {return energyCost;}
+	public void setEnergyCost(EnergyCost energyCost) {this.energyCost = energyCost;}
 
 	// TO STRING
-
-	public CoutEnergetique getCoutEnergetique() {
-		return coutEnergetique;
-	}
-
-	public void setCoutEnergetique(CoutEnergetique coutEnergetique) {
-		this.coutEnergetique = coutEnergetique;
-	}
-
 	@Override
 	public String toString() {
-		return "Ingredient [id=" + id + ", nom=" + nom + ", dqr=" + dqr + ", sousGroupeIng=" + sousGroupeIng + "]";
+		return "ID: " + id + "-> " + name + " - DQR: " + dqr + " - Sub-group: " + subGroup +
+				"/n--> Energy cost: " + energyCost;
 	}
-
 }

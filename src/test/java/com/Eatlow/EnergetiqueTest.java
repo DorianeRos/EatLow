@@ -6,22 +6,22 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.Eatlow.model.CoutEnergetique;
-import com.Eatlow.repository.CrudCoupEnergetiqueRepo;
+import com.Eatlow.model.EnergyCost;
+import com.Eatlow.repository.CrudEnergyCostRepo;
 
 @SpringBootTest
 public class EnergetiqueTest {
 
 	@Autowired
-	private CrudCoupEnergetiqueRepo cer;
+	private CrudEnergyCostRepo cer;
 
 	@Test
 	public void testCreate() {
-		CoutEnergetique ce = new CoutEnergetique();
+		EnergyCost ce = new EnergyCost();
 		ce.setAgriculture((float) 1.6);
 		ce.setConsomation((float) 2.3);
-		ce.setEmballage((float) 3.6);
-		ce.setSupermarche((float) 4.6);
+		ce.setPackaging((float) 3.6);
+		ce.setSupermarket((float) 4.6);
 		ce.setTransformation((float) 5.6);
 		ce.setTransport((float) 6.6);
 		cer.save(ce);
