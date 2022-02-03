@@ -22,16 +22,16 @@ public class Plat {
 	private int id;
 
 	@Column(name = "NOM")
-	private String nom;
+	private String name;
 
-	@Column(name = "AUTRE_ETAPE")
-	private Float coupAutreEtape;
+	@Column(name = "COUT_AUTRE_ETAPE")
+	private Float OtherStepCost;
 
 	@ManyToOne // LIEN AVEC SOUS GROUPE
 	@JoinColumn(name = "SOUS_GROUPE_ID")
-	private SousGroupe sousGroupePlat;
+	private SousGroupe subGroupMeal;
 
-	@ManyToMany // table lien entre utilisateur et plat
+	@ManyToMany // table lien entre ingredient et plat
 	@JoinTable(name = "COMPOSITION_PLAT_INGREDIENT", joinColumns = @JoinColumn(name = "PLAT_ID", referencedColumnName = "ID"), inverseJoinColumns = @JoinColumn(name = "INGREDIENT_ID", referencedColumnName = "ID"))
 	private Set<Ingredient> ingredients;
 
@@ -40,6 +40,7 @@ public class Plat {
 	}
 
 	// SETTERS / GETTERS
+
 	public int getId() {
 		return id;
 	}
@@ -48,39 +49,43 @@ public class Plat {
 		this.id = id;
 	}
 
-	public String getNom() {
-		return nom;
+	public String getName() {
+		return name;
 	}
 
-	public void setNom(String nom) {
-		this.nom = nom;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public SousGroupe getSousGroupePlat() {
-		return sousGroupePlat;
+	public Float getOtherStepCost() {
+		return OtherStepCost;
 	}
 
-	public void setSousGroupePlat(SousGroupe sousGroupePlat) {
-		this.sousGroupePlat = sousGroupePlat;
+	public void setOtherStepCost(Float otherStepCost) {
+		OtherStepCost = otherStepCost;
 	}
 
-	public Float getCoupAutreEtape() {
-		return coupAutreEtape;
+	public SousGroupe getSubGroupMeal() {
+		return subGroupMeal;
 	}
 
-	public void setCoupAutreEtape(Float coupAutreEtape) {
-		this.coupAutreEtape = coupAutreEtape;
+	public void setSubGroupMeal(SousGroupe subGroupMeal) {
+		this.subGroupMeal = subGroupMeal;
 	}
-	
-	
+
+	public Set<Ingredient> getIngredients() {
+		return ingredients;
+	}
+
+	public void setIngredients(Set<Ingredient> ingredients) {
+		this.ingredients = ingredients;
+	}
+
 	// TO STRING
-
 	@Override
 	public String toString() {
-		return "Plat [id=" + id + ", nom=" + nom + ", coupAutreEtape=" + coupAutreEtape + ", sousGroupePlat="
-				+ sousGroupePlat + ", ingredients=" + ingredients + "]";
+		return "Plat [id=" + id + ", nom=" + name + ", coutAutreEtape=" + OtherStepCost + ", sousGroupePlat="
+				+ subGroupMeal + ", ingredients=" + ingredients + "]";
 	}
-
-
 
 }

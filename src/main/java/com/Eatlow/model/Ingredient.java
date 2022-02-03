@@ -11,9 +11,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.springframework.lang.Nullable;
+
 @Entity
 @Table(name = "INGREDIENT")
-
 public class Ingredient {
 
 	@Id
@@ -58,6 +59,7 @@ public class Ingredient {
 	public Float getDqr() {
 		return dqr;
 	}
+
 	public void setDqr(Float dqr) {
 		this.dqr = dqr;
 	}
