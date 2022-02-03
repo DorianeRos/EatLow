@@ -33,12 +33,10 @@ public class Plat {
 
 	@ManyToMany // table lien entre ingredient et plat
 	@JoinTable(name = "COMPOSITION_PLAT_INGREDIENT", joinColumns = @JoinColumn(name = "PLAT_ID", referencedColumnName = "ID"), inverseJoinColumns = @JoinColumn(name = "INGREDIENT_ID", referencedColumnName = "ID"))
-
 	private Set<Ingredient> ingredients;
 
 	// CONSTRUCTEUR VIDE
 	public Plat() {
-		// TODO Auto-generated constructor stub
 	}
 
 	// SETTERS / GETTERS
