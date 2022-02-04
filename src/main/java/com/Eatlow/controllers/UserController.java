@@ -83,16 +83,16 @@ public class UserController {
 
 	@PostMapping("/login")
 	public Map<String, String> loginUser(@Valid @RequestBody User user, BindingResult result) throws UserException {
+		Map<String, String> message = new HashMap<>();
 		this.checkForLogin(user);
-		System.out.println(user);
-		System.out.println(result);
 		Optional<User> userInDB = this.userRepository.findByEmail(user.getEmail());
 		if (userInDB.isEmpty()) {
-			throw new UserException("Error");
+			message.put("Error",
+					new UserException("User with email: " + user.getEmail() + " doesn't exist").getMessage());
+			return message;
 		}
 		this.checkForPasswordValidity(user.getPassword(), userInDB.get().getPassword());
-		Map<String, String> message = new HashMap<>();
-		message.put("coucou", "salut");
+		message.put("Bravo", "Tu es connecté GG");
 		return message;
 	}
 }
