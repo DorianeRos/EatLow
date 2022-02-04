@@ -1,5 +1,7 @@
 package com.Eatlow.model;
 
+import org.springframework.lang.Nullable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,9 +11,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.springframework.lang.Nullable;
+
 @Entity
 @Table(name = "INGREDIENT")
-
 public class Ingredient {
 
 	@Id
@@ -19,69 +22,58 @@ public class Ingredient {
 	private int id;
 
 	@Column(name = "NOM")
-	private String nom;
+	private String name;
 
-	@Column(name = "DQR")
-	private float dqr;
+	@Nullable
+	@Column(name = "DQR", nullable = true)
+	private Float dqr;
 
+	@Nullable
 	@ManyToOne // LIEN AVEC SOUS GROUPE
-	@JoinColumn(name = "ID_SOUS_GRP_ING")
-	private SousGroupe sousGroupeIng;
+	@JoinColumn(name = "SOUS_GROUPE_ID", nullable = true)
+	private SousGroupe subGroup;
 
+	@ManyToOne // LIEN AVEC COUT_ENERGETIQUE
+	@JoinColumn(name = "COUT_ENERGETIQUE_ID")
+	private EnergyCost energyCost;
 
-	// CONSTRUCTEUR
-	public Ingredient(int id, String nom, float dqr, SousGroupe sousGroupeIng) {
-		super();
-		this.id = id;
-		this.nom = nom;
-		this.dqr = dqr;
-		this.sousGroupeIng = sousGroupeIng;
+	// CONSTRUCTEUR VIDE
+	public Ingredient() {
 	}
 
 	// GETTERS / SETTERS
 	public int getId() {
 		return id;
 	}
-
 	public void setId(int id) {
 		this.id = id;
 	}
 
-	public String getNom() {
-		return nom;
+	public String getName() {
+		return name;
+	}
+	public void setName(String nom) {
+		this.name = name;
 	}
 
-	public void setNom(String nom) {
-		this.nom = nom;
-	}
-
-	public float getDqr() {
+	public Float getDqr() {
 		return dqr;
 	}
 
-	public void setDqr(float dqr) {
+	public void setDqr(Float dqr) {
 		this.dqr = dqr;
 	}
 
-	public SousGroupe getSousGroupeIng() {
-		return sousGroupeIng;
-	}
+	public SousGroupe getSubGroup() {return subGroup;}
+	public void setSubGroup(SousGroupe subGroup) {this.subGroup = subGroup;}
 
-	public void setSousGroupeIng(SousGroupe sousGroupeIng) {
-		this.sousGroupeIng = sousGroupeIng;
-	}
+	public EnergyCost getEnergyCost() {return energyCost;}
+	public void setEnergyCost(EnergyCost energyCost) {this.energyCost = energyCost;}
 
 	// TO STRING
-
 	@Override
 	public String toString() {
-		return "Ingredient [id=" + id + ", nom=" + nom + ", dqr=" + dqr + ", sousGroupeIng=" + sousGroupeIng
-				+ "]";
+		return "ID: " + id + "-> " + name + " - DQR: " + dqr + " - Sub-group: " + subGroup +
+				"/n--> Energy cost: " + energyCost;
 	}
-
-	// CONSTRUCTEUR VIDE
-	public Ingredient() {
-		// TODO Auto-generated constructor stub
-	}
-
 }
