@@ -75,9 +75,10 @@ public class UserController {
 	}
 
 	@PostMapping("/register")
-	public void registerUser(@Valid @RequestBody User user, BindingResult result) throws UserException {
+	public User registerUser(@Valid @RequestBody User user, BindingResult result) throws UserException {
 		this.checkForErrors(result);
 		this.userRepository.save(user);
+		return user;
 	}
 
 	@PostMapping("/login")

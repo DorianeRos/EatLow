@@ -1,5 +1,6 @@
 package com.Eatlow.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -34,18 +35,19 @@ public class User {
 	private String password;
 
 	@ManyToMany // table de lien entre utilisateur et ingredients
-	@JoinTable(name = "HISTORIQUE_INGREDIENT", joinColumns = @JoinColumn(name = "ID_UTI", referencedColumnName = "ID"), inverseJoinColumns = @JoinColumn(name = "ID_ING", referencedColumnName = "ID"))
+	@JoinTable(name = "HISTORIQUE_INGREDIENT", joinColumns = @JoinColumn(name = "UTILISATEUR_ID", referencedColumnName = "ID"), inverseJoinColumns = @JoinColumn(name = "INGREDIENT_ID", referencedColumnName = "ID"))
 
 	private List<Ingredient> historyIngredients;
 
 	@ManyToMany // table lien entre utilisateur et plat
-	@JoinTable(name = "HISTORIQUE_PLAT", joinColumns = @JoinColumn(name = "ID_UTI", referencedColumnName = "ID"), inverseJoinColumns = @JoinColumn(name = "ID_PLAT", referencedColumnName = "ID"))
+	@JoinTable(name = "HISTORIQUE_PLAT", joinColumns = @JoinColumn(name = "UTILISATEUR_ID", referencedColumnName = "ID"), inverseJoinColumns = @JoinColumn(name = "PLAT_ID", referencedColumnName = "ID"))
 
 	private List<Plat> historyMeals;
 
 	// CONSTRUCTEUR VIDE
 	public User() {
-		// TODO Auto-generated constructor stub
+		historyIngredients = new ArrayList<>();
+		historyMeals = new ArrayList<>();
 	}
 
 	// SETTERS / GETTERS
