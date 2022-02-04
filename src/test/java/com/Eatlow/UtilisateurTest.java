@@ -6,19 +6,19 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.Eatlow.model.Utilisateur;
-import com.Eatlow.repository.CrudUtilisateurRepo;
+import com.Eatlow.model.User;
+import com.Eatlow.repository.CrudUserRepo;
 
 @SpringBootTest
 class UtilisateurTest {
 	@Autowired
-	private CrudUtilisateurRepo cur;
+	private CrudUserRepo cur;
 
 	@Test
 	void testCreate() {
-		Utilisateur u = new Utilisateur();
-		u.setPrenom("pierre");
-		u.setNom("vache");
+		User u = new User();
+		u.setFirstname("pierre");
+		u.setLastname("vache");
 		u.setEmail("pierre.vache@gmail.com");
 		u.setPassword("fjfjsodfkzeo");
 		cur.save(u);
