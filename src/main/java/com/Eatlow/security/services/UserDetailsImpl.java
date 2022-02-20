@@ -33,14 +33,20 @@ public class UserDetailsImpl implements UserDetails {
 
 	@Override
 	public String getPassword() {
-		// TODO Auto-generated method stub
-		return null;
+		return password;
 	}
 
 	@Override
 	public String getUsername() {
-		// TODO Auto-generated method stub
-		return null;
+		return email;
+	}
+
+	public String getLastname() {
+		return lastname;
+	}
+
+	public String getFirstname() {
+		return firstname;
 	}
 
 	@Override
@@ -71,6 +77,10 @@ public class UserDetailsImpl implements UserDetails {
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public int getId() {
+		return id;
 	}
 
 }

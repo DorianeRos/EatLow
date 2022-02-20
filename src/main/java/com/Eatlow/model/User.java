@@ -1,8 +1,10 @@
 package com.Eatlow.model;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
+import javax.annotation.Nullable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,10 +15,15 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 @Entity
 @Table(name = "UTILISATEUR")
 
-public class User {
+public class User implements UserDetails {
+
+	private static final long serialVersionUID = -7318820308134853289L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,14 +41,14 @@ public class User {
 	@Column(name = "PASSWORD")
 	private String password;
 
+	@Nullable
 	@ManyToMany // table de lien entre utilisateur et ingredients
 	@JoinTable(name = "HISTORIQUE_INGREDIENT", joinColumns = @JoinColumn(name = "UTILISATEUR_ID", referencedColumnName = "ID"), inverseJoinColumns = @JoinColumn(name = "INGREDIENT_ID", referencedColumnName = "ID"))
-
 	private List<Ingredient> historyIngredients;
 
+	@Nullable
 	@ManyToMany // table lien entre utilisateur et plat
 	@JoinTable(name = "HISTORIQUE_PLAT", joinColumns = @JoinColumn(name = "UTILISATEUR_ID", referencedColumnName = "ID"), inverseJoinColumns = @JoinColumn(name = "PLAT_ID", referencedColumnName = "ID"))
-
 	private List<Plat> historyMeals;
 
 	// CONSTRUCTEUR VIDE
@@ -63,16 +70,16 @@ public class User {
 		return lastname;
 	}
 
-	public void setLastname(String nom) {
-		this.lastname = nom;
+	public void setLastname(String lastname) {
+		this.lastname = lastname;
 	}
 
 	public String getFirstname() {
 		return firstname;
 	}
 
-	public void setFirstname(String prenom) {
-		this.firstname = prenom;
+	public void setFirstname(String firstname) {
+		this.firstname = firstname;
 	}
 
 	public String getEmail() {
@@ -113,6 +120,36 @@ public class User {
 		return "User [id=" + id + ", lastname=" + lastname + ", firstname=" + firstname + ", email=" + email
 				+ ", password=" + password + ", historyIngredients=" + historyIngredients + ", historyMeals="
 				+ historyMeals + "]";
+	}
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		return new ArrayList<>();
+	}
+
+	@Override
+	public String getUsername() {
+		return this.email;
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		return true;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		return true;
 	}
 
 }

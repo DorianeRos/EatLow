@@ -22,7 +22,7 @@ import com.Eatlow.repository.CrudUserRepo;
 
 @RestController
 @CrossOrigin
-@RequestMapping("api/users")
+@RequestMapping("api/public/users")
 public class UserController {
 
 	@Autowired
@@ -76,8 +76,9 @@ public class UserController {
 
 	@PostMapping("/register")
 	public User registerUser(@Valid @RequestBody User user, BindingResult result) throws UserException {
-		this.checkForErrors(result);
-		this.userRepository.save(user);
+		System.out.println(user);
+		// this.checkForErrors(result);
+//		this.userRepository.save(user);
 		return user;
 	}
 
