@@ -61,12 +61,8 @@ public class JWTTokenService implements TokenService, Clock {
 	private String newToken(final Map<String, String> attributes, int expiresInSec) {
 		final DateTime now = dates.now();
 		final Claims claims = Jwts.claims().setIssuer(issuer).setIssuedAt(now.toDate());
-		expiresInSec = 0;
 		if (expiresInSec > 0) {
 			final DateTime expiresAt = now.plusSeconds(expiresInSec);
-			System.out.println(now + " now");
-			System.out.println(expiresInSec);
-			System.out.println(expiresAt + " after");
 			claims.setExpiration(expiresAt.toDate());
 		}
 		claims.putAll(attributes);

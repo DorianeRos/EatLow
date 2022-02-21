@@ -22,12 +22,6 @@ public class TokenAuthenticationService implements UserAuthenticationService {
 
 	@Override
 	public Optional<String> login(String email, String password) {
-//		Optional<User> u = users.findByEmail(email);
-//		System.out.println(u);
-//		u = u.filter(user -> Objects.equals(password, user.getPassword()));
-//		System.out.println(u);
-//		System.out.println(u.map(user -> tokens.expiring(ImmutableMap.of("email", email))));
-
 		return users.findByEmail(email).filter(user -> Objects.equals(password, user.getPassword()))
 				.map(user -> tokens.expiring(ImmutableMap.of("email", email)));
 	}

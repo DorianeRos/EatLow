@@ -15,13 +15,12 @@ import com.Eatlow.repository.CrudPlatRepo;
 
 @RestController
 @CrossOrigin
-@RequestMapping("api/meals")
+@RequestMapping("api/public/meals")
 public class MealController {
 
 	@Autowired
 	private CrudPlatRepo cpr;
 
-	
 	/**
 	 * Gestion de l'erreur
 	 * 
@@ -37,6 +36,7 @@ public class MealController {
 
 	/**
 	 * Dans postman : api/meals
+	 * 
 	 * @return la liste des plats
 	 */
 
@@ -49,7 +49,7 @@ public class MealController {
 	 * Dans postman : api/meals/1 (ou autre ID)
 	 * 
 	 * @param pid
-	 * @author Doriane 
+	 * @author Doriane
 	 * @return un plat trouvé par son ID
 	 * @throws ErreurPlat
 	 * 
@@ -60,28 +60,28 @@ public class MealController {
 		verifMeal(pid);
 		return cpr.findById(pid);
 	}
-	
+
 	/**
 	 * Trouver tout les plats portant le même nom
+	 * 
 	 * @author doriane
 	 * 
 	 */
-	
-	@GetMapping("searchMeals/{searchByName}")
-	public Iterable<Plat> getSimilarMeals(@PathVariable("searchByName") String name) throws ErrorsMeal {
+
+	@GetMapping("search/{name}")
+	public Iterable<Plat> getSimilarMeals(@PathVariable("name") String name) throws ErrorsMeal {
 		return cpr.getSimilarMeals(name);
 	}
-		
-	
+
 	/**
 	 * Trouver tout les plats associés à un ingredient
+	 * 
 	 * @author doriane
 	 */
-	
-	@GetMapping("ByIngredient/{searchById}")
-	public Iterable<Plat> getMealsByIngredientId(@PathVariable("searchById") Integer id) throws ErrorsMeal {
+
+	@GetMapping("ByIngredient/{id}")
+	public Iterable<Plat> getMealsByIngredientId(@PathVariable("id") Integer id) throws ErrorsMeal {
 		return cpr.getMealsByIngredientId(id);
 	}
-	
-	
+
 }

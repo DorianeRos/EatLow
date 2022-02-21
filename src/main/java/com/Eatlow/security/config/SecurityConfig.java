@@ -30,7 +30,10 @@ import com.Eatlow.security.services.impl.NoRedirectStrategy;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-	private static final RequestMatcher PUBLIC_URLS = new OrRequestMatcher(new AntPathRequestMatcher("/api/public/**"));
+	private static final RequestMatcher PUBLIC_URLS = new OrRequestMatcher(new AntPathRequestMatcher("/api/public/**"),
+			new AntPathRequestMatcher("/swagger-ui/**"), new AntPathRequestMatcher("/v3/**"));
+	private static final RequestMatcher SWAGGER = new OrRequestMatcher(
+			new AntPathRequestMatcher("/swagger-ui/index.html#/"));
 	private static final RequestMatcher PROTECTED_URLS = new NegatedRequestMatcher(PUBLIC_URLS);
 	@Autowired
 	TokenAuthenticationProvider provider;
@@ -47,7 +50,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	public void configure(final WebSecurity web) {
-		web.ignoring().requestMatchers(PUBLIC_URLS);
+		web.ignoring().requestMatchers(PUBLIC_URLS, SWAGGER);
 	}
 
 	@Override
