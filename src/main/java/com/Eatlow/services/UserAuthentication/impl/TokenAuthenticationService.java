@@ -23,9 +23,12 @@ public class TokenAuthenticationService implements UserAuthenticationService {
 	CrudUserRepo users;
 
 	@Override
-	public Optional<String> login(String email, String password) {
-		return users.findByEmail(email).filter(user -> Objects.equals(password, user.getPassword()))
+	public Map<String, String> login(String email, String password) {
+		Optional<String> str = users.findByEmail(email).filter(user -> Objects.equals(password, user.getPassword()))
 				.map(user -> tokens.expiring(ImmutableMap.of("email", email)));
+		Map<String, String> token = new HashMap<>();
+		token.put("token", str.get());
+		return token;
 	}
 
 	@Override

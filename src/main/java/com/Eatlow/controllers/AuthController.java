@@ -1,6 +1,8 @@
 package com.Eatlow.controllers;
 
+import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -26,22 +28,40 @@ public class AuthController {
 	private CrudUserRepo userRepository;
 
 	@Autowired
-	UserAuthenticationService authentication;
+	private UserAuthenticationService authentication;
+
+	private String message = "";
 
 	@PostMapping("/register")
-	public String registerUser(@Valid @RequestBody User user, BindingResult result) throws UserException {
+	public Map<String, String> registerUser(@Valid @RequestBody User user, BindingResult result) throws UserException {
+//		this.checkForErrors(result);
+		Optional<User> u = userRepository.findByEmail(user.getEmail());
+		if (!u.isEmpty()) {
+			Map<String, String> error = new HashMap<>();
+			error.put("error", "Email already taken");
+			return error;
+		}
 		userRepository.save(user);
 		return login(user);
 	}
 
 	@PostMapping("/login")
-	public String login(@Valid @RequestBody User user) {
-		return authentication.login(user.getEmail(), user.getPassword())
-				.orElseThrow(() -> new RuntimeException("invalid login and/or password"));
+	public Map<String, String> login(@Valid @RequestBody User user) {
+		return authentication.login(user.getEmail(), user.getPassword());
 	}
 
 	@PostMapping("/isTokenValid")
 	public Map<String, Object> isTokenValid(@RequestBody Map<String, String> token) {
 		return authentication.isValid(token.get("token"));
 	}
+
+//	private void checkForErrors(BindingResult result) throws UserException {
+//		this.message = "";
+//		if (result.hasErrors()) {
+//			result.getFieldErrors().forEach(e -> {
+//				this.message += e.getField() + " " + e.getDefaultMessage() + "\n";
+//			});
+//			throw new UserException(this.message);
+//		}
+//	}
 }
