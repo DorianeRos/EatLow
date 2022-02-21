@@ -1,5 +1,7 @@
 package com.Eatlow.services.UserAuthentication.impl;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -37,6 +39,16 @@ public class TokenAuthenticationService implements UserAuthenticationService {
 	public void logout(User user) {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public Map<String, Object> isValid(String token) {
+		Map<String, String> res = tokens.verify(token);
+		boolean isValid = Integer.parseInt(res.get("iat")) - Integer.parseInt(res.get("exp")) < 0;
+		Map<String, Object> map = new HashMap<>();
+		map.put("isValid", isValid);
+		map.putAll(res);
+		return map;
 	}
 
 }

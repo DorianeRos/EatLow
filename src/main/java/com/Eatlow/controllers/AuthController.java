@@ -1,5 +1,7 @@
 package com.Eatlow.controllers;
 
+import java.util.Map;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,5 +38,10 @@ public class AuthController {
 	public String login(@Valid @RequestBody User user) {
 		return authentication.login(user.getEmail(), user.getPassword())
 				.orElseThrow(() -> new RuntimeException("invalid login and/or password"));
+	}
+
+	@PostMapping("/isTokenValid")
+	public Map<String, Object> isTokenValid(@RequestBody Map<String, String> token) {
+		return authentication.isValid(token.get("token"));
 	}
 }

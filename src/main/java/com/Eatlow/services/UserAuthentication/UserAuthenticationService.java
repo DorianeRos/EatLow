@@ -1,5 +1,6 @@
 package com.Eatlow.services.UserAuthentication;
 
+import java.util.Map;
 import java.util.Optional;
 
 import com.Eatlow.model.User;
@@ -28,4 +29,12 @@ public interface UserAuthenticationService {
 	 * @param user the user to logout
 	 */
 	void logout(User user);
+
+	/**
+	 * Tells if token still valid
+	 * 
+	 * @param token
+	 * @return boolean
+	 */
+	Map<String, Object> isValid(String token);
 }
